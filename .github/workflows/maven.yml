@@ -16,10 +16,10 @@ jobs:
         java-version: 1.8
       run: |
         git clone https://github.com/openucx/ucx.git && cd ucx && ./autogen.sh && ./contrib/configure-release --disable-numa --with-java
+
     - name: Install JUCX to local maven
       id: jucx/install
-      run:
-        cd bindings/java && mvn -DskipTests install
+      run: cd bindings/java && mvn -DskipTests install
       
   build-sparkucx:
     needs: install-jucx
