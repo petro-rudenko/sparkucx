@@ -15,7 +15,7 @@ jobs:
       with:
         java-version: 1.8
       run: |
-      git clone https://github.com/openucx/ucx.git && cd ucx && ./autogen.sh && ./contrib/configure-release --disable-numa --with-java
+        git clone https://github.com/openucx/ucx.git && cd ucx && ./autogen.sh && ./contrib/configure-release --disable-numa --with-java
     - name: Install JUCX to local maven
       id: jucx/install
       run:
