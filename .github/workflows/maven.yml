@@ -1,0 +1,37 @@
+name: SparkUCX CI
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  install-jucx:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout JUCX library
+      id: jucx/checkout
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+      run: |
+      git clone https://github.com/openucx/ucx.git && cd ucx && ./autogen.sh && ./contrib/configure-release --disable-numa --with-java
+    - name: Install JUCX to local maven
+      id: jucx/install
+      run:
+        cd bindings/java && mvn -DskipTests install
+      
+  build-sparkucx:
+    needs: install-jucx
+    strategy:
+      matrix:
+        spark_version: [2.2.0, 2.3.0, 2.4.0]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn package -Pspark-${{ matrix.spark_version }} --file pom.xml
