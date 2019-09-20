@@ -18,4 +18,5 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn package -Pspark-${{ matrix.spark_version }} --file pom.xml
+      run: mvn package -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+           -Pspark-${{ matrix.spark_version }} --file pom.xml
