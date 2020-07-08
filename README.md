@@ -45,7 +45,7 @@ spark.shuffle.manager   org.apache.spark.shuffle.UcxShuffleManager
 ```
 For spark-3.0 version add SparkUCX ShuffleIO plugin:
 ```
-spark.shuffle.sort.io.plugin.class org.apache.spark.shuffle.compat.spark_3_0.UcxLocalDiskShuffleDataIO
+spark.shuffle.sort.io.plugin.class org.apache.spark.shuffle.UcxLocalDiskShuffleDataIO
 ```
 
 ### Build
